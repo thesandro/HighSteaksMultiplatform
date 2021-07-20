@@ -2,15 +2,8 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    let greet: Void = ApiService().getPosts(page: 0, completionHandler: {data,_ in
-        for item in data?.result ?? [] {
-            let post = item as! Post
-            print(post.title)
-        }
-})
-    
     var body: some View {
-        Text("hey")
+        LoginView()
     }
 }
 
@@ -21,18 +14,25 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
-//struct LoginView: View {
-//    @State var login = ""
-//    @State var password = ""
-//    
-//    var body: some View {
-//        VStack(
-//        ) {
-//            TextField("login", text: $login)
-//            TextField("password", text: $password)
-//            Button(action: {}) {
-//                Text("Enter")
-//            }
-//        }
-//    }
-//}
+struct LoginView: View {
+    @State var login = ""
+    @State var password = ""
+    
+    @State var selection: Int? = nil
+    
+    var body: some View {
+        
+        NavigationView{
+            VStack(
+            ) {
+                Image("bonkybear")
+                    .frame(200,200)
+                TextField("Username", text: $login).padding(32)
+                TextField("Password", text: $password).padding(32)
+                NavigationLink(destination: HomeView(), tag:1, selection: $selection) {
+                    Text("Enter").padding(8).frame(width: 200, height: 48, alignment: .center)
+                }
+            }
+        }
+    }
+}

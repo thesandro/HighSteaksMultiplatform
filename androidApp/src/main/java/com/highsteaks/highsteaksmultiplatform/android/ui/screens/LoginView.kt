@@ -15,9 +15,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.highsteaks.highsteaksmultiplatform.android.R
 import com.highsteaks.highsteaksmultiplatform.android.ui.navigation.Screen
-import com.google.accompanist.coil.rememberCoilPainter
 
 
 @Composable
@@ -42,9 +44,9 @@ fun LoginView(navController: NavHostController) {
             modifier = Modifier
                 .width(200.dp)
                 .height(200.dp),
-            painter = rememberCoilPainter(
-                "https://www.kickassfacts.com/wp-content/uploads/2021/04/bear.jpg",
-                previewPlaceholder = R.drawable.ic_launcher_foreground
+            painter = rememberImagePainter(
+                data = "https://www.kickassfacts.com/wp-content/uploads/2021/04/bear.jpg",
+                imageLoader = LocalImageLoader.current
             ),
             contentDescription = ""
         )

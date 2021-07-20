@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class PostListResponse(
-    val result:ArrayList<Post>,
+    val result:List<Post>,
     val nextPage:Int
 )

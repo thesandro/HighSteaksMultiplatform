@@ -2,7 +2,7 @@ package com.highsteaks.highsteaksmultiplatform.android.view_models
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.highsteaks.highsteaksmultiplatform.android.network.ApiService
+import com.highsteaks.highsteaksmultiplatform.network.ApiService
 import com.highsteaks.highsteaksmultiplatform.network.model.Post
 
 class MovieSource(

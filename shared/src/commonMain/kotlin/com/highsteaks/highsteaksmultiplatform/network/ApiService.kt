@@ -1,4 +1,4 @@
-package com.highsteaks.highsteaksmultiplatform.android.network
+package com.highsteaks.highsteaksmultiplatform.network
 
 import com.highsteaks.highsteaksmultiplatform.network.model.PostListResponse
 import io.ktor.client.*
