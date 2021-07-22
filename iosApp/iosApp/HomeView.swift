@@ -11,11 +11,42 @@ import shared
 
 struct HomeView: View {
     @ObservedObject var cityBikesViewModel = HomeViewModel()
+    @State var selected = 0
     
     var body: some View {
-        List(cityBikesViewModel.postList, id: \.id){ post in
-            PostView(post: post)
+        VStack(alignment: .leading){
+            ZStack(alignment: .top){
+                BottomBar(selected: self.$selected)
+                    .padding()
+                    .padding(.horizontal, 22)
+                    .frame(maxWidth: .infinity)
+            }.background(Color.gray.edgesIgnoringSafeArea(.all))
+            HStack {
+                Image("bonkybear").resizable().aspectRatio(contentMode: .fill)
+                    .frame(width: 40, height: 40).clipShape(Circle())
+                NavigationLink(destination: CreatePostView()
+                                .navigationBarTitle("Create Post", displayMode: .inline)) {
+                    
+                        Text("Do you want to make a post?")
+                            .foregroundColor(Color.gray)
+                }.navigationBarTitle("", displayMode: .inline)
+                .frame(
+                      minWidth: 0,
+                      maxWidth: .infinity,
+                      minHeight: 0,
+                      maxHeight: 40,
+                    alignment: .leading
+                    )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray, lineWidth: 2).padding(.leading,-8).padding(.trailing,8))
+                .padding(.leading,5)
+            }.padding(.leading,5)
+            List(cityBikesViewModel.postList, id: \.id){ post in
+                PostView(post: post)
+            }
         }
+        
     }
 }
 
@@ -31,14 +62,63 @@ struct PostView : View {
         VStack(alignment: .leading) {
             
             HStack() {
-                Image("bonkybear").resizable()
-                    .frame(width: 50, height: 50)
+                Image("bonkybear").resizable().aspectRatio(contentMode: .fill)
+                    .frame(width: 50, height: 50).clipShape(Circle())
                 Text(post.full_name)
             }
             Text(post.description_)
             Image("bonkybear").resizable().frame(width: 250, height: 250,alignment: .center)
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
         }
     }
 }
 
+struct BottomBar : View {
+    
+    @Binding var selected : Int
+    
+    var body : some View{
+        
+        HStack(){
+            Button(action: {
+                
+                self.selected = 0
+                
+            }) {
+                
+                Image("home")
+                
+            }.foregroundColor(self.selected == 0 ? .black : .gray)
+            Spacer()
+            Button(action: {
+                
+                self.selected = 1
+                
+            }) {
+                
+                Image("home")
+                
+            }.foregroundColor(self.selected == 1 ? .black : .gray)
+            Spacer()
+            Button(action: {
+                
+                self.selected = 2
+                
+            }) {
+                
+                Image("home")
+                
+            }.foregroundColor(self.selected == 2 ? .black : .gray)
+            Spacer()
+            Button(action: {
+                
+                self.selected = 3
+                
+            }) {
+                
+                Image("home")
+                
+            }.foregroundColor(self.selected == 3 ? .black : .gray)
+        }
+    }
+}

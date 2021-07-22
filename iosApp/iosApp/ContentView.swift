@@ -26,12 +26,17 @@ struct LoginView: View {
             VStack(
             ) {
                 Image("bonkybear")
-                    .frame(200,200)
+                    .frame(width: 200, height: 200)
                 TextField("Username", text: $login).padding(32)
                 TextField("Password", text: $password).padding(32)
-                NavigationLink(destination: HomeView(), tag:1, selection: $selection) {
+                NavigationLink(destination: HomeView()
+                                .navigationBarTitle("", displayMode: .inline)
+                                .navigationBarBackButtonHidden(true)
+                                .navigationBarHidden(true), tag:1, selection: $selection) {
                     Text("Enter").padding(8).frame(width: 200, height: 48, alignment: .center)
-                }
+                }.navigationBarTitle("", displayMode: .inline)
+                .navigationBarBackButtonHidden(true)
+                .navigationBarHidden(true)
             }
         }
     }
