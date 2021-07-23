@@ -20,6 +20,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -33,11 +34,19 @@ fun CreatePostView(
     navController: NavHostController,
     createPostViewModel: CreatePostViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+
+
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("") }
     val images by createPostViewModel.uiState.collectAsState()
-
+    fun createPost(){
+        val inputData = context.contentResolver.openInputStream(createPostViewModel.uiState.value[0])?.readBytes()
+        if (inputData != null) {
+            createPostViewModel.createPost(title = title, byteArray =  inputData)
+        }
+    }
     val launcher = rememberLauncherForActivityResult(contract =
     ActivityResultContracts.GetContent()) { uri: Uri? ->
         if(uri != null)
@@ -135,6 +144,11 @@ fun CreatePostView(
                 )
             }
 
+        }
+        Button(onClick = {
+            createPost()
+        }){
+            Text("createPost")
         }
     }
 }

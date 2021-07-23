@@ -67,5 +67,6 @@ dependencies {
     implementation('io.ktor:ktor-client-android:1.6.1')
     implementation('org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2')
     implementation 'androidx.paging:paging-compose:1.0.0-alpha11'
+    implementation("io.ktor:ktor-client-logging:1.6.1")
 
 }

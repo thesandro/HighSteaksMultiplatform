@@ -33,6 +33,9 @@ kotlin {
             dependencies {
                 implementation ("io.ktor:ktor-client-core:1.6.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
+                implementation("io.ktor:ktor-client-logging:1.6.1")
+
+                implementation ("ch.qos.logback:logback-classic:1.2.3")
             }
         }
         val commonTest by getting {
@@ -54,6 +57,7 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
                 implementation("io.ktor:ktor-client-ios:1.6.1")
             }
         }
