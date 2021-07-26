@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 
 
 object ApiService {
-    private const val BASE_PATH = "https://ktorhighsteaks.herokuapp.com/"
+    private const val BASE_PATH = "https://ktorhighsteaks.herokuapp.com"
     private val ktorClient = HttpClient() {
         install(Logging) {
             logger = Logger.DEFAULT

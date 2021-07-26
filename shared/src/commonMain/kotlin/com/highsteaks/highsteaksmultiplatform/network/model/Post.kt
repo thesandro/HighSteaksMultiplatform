@@ -11,7 +11,7 @@ class Post(
     val title:String,
     val description:String,
     val category_id:Int,
-    val urls:ArrayList<ImageUrl>,
+    val urls:List<ImageUrl>,
     val tags:String,
     val price:Double,
     val price_type:String,
