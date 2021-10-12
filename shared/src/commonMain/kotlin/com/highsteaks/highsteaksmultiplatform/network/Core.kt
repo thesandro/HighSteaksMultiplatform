@@ -1,4 +1,4 @@
-package network
+package com.highsteaks.highsteaksmultiplatform.network
 
 //class Core{
 //    suspend fun getRedditData():ArrayList<Post>{

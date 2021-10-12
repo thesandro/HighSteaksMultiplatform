@@ -12,10 +12,10 @@ import shared
 class CreatePostViewModel: ObservableObject {
     private let repository: ApiService =  ApiService()
 
-    func createPost(title:String,data: Data?){
+    func createPost(title:String,data: Data?, completion: @escaping (Bool) -> Void){
         let byteArray = DataHelperKt.toByteArray(data!)
         repository.createPost(title: title, uploadFiles: byteArray, completionHandler: { data, _ in
-            print("true" + (data ?? ""))
+            completion(data?.posted ?? false)
         })
     }
 }

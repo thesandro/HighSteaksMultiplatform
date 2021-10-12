@@ -14,9 +14,9 @@ class MovieSource(
             val postListResponse = ApiService.getPosts(nextPage)
 
             LoadResult.Page(
-                data = postListResponse.result,
+                data = postListResponse!!.result,
                 prevKey = if (nextPage == 0) null else nextPage - 1,
-                nextKey = postListResponse.nextPage
+                nextKey = if (postListResponse.result.isEmpty()) null else postListResponse.nextPage
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

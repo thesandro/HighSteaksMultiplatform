@@ -1,5 +1,6 @@
 package com.highsteaks.highsteaksmultiplatform.android.ui.screens
 
+import android.app.Application
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -14,23 +15,28 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.highsteaks.highsteaksmultiplatform.android.R
 import com.highsteaks.highsteaksmultiplatform.android.ui.navigation.Screen
+import com.highsteaks.highsteaksmultiplatform.android.view_models.CreatePostViewModel
+import com.highsteaks.highsteaksmultiplatform.android.view_models.LoginViewModel
 
 
 @Composable
-fun LoginView(navController: NavHostController) {
+fun LoginView(navController: NavHostController,loginViewModel: LoginViewModel = viewModel()){
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val context = LocalContext.current
+    val posted by loginViewModel.loginState.collectAsState()
 
     fun navigateToPosts(){
-        navController.navigate(Screen.Home.route)
+        loginViewModel.authorize(login,password)
     }
+    if(posted)
+        navController.navigate(Screen.Home.route)
 
     Column(
         modifier = Modifier

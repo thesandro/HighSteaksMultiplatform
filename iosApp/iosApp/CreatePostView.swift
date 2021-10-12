@@ -35,8 +35,11 @@ struct CreatePostView: View {
     @State var title = ""
     @State var description = ""
     @State var tags = ""
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel = ViewModel()
     @ObservedObject var createPostViewModel = CreatePostViewModel()
+    func popBacksTack(){
+    }
     var body: some View {
         VStack(alignment: .leading) {
             TextField("Title", text: $title).padding(32)
@@ -53,7 +56,11 @@ struct CreatePostView: View {
             })
             Button(action: {
                 let data = viewModel.selectedImage?.jpegData(compressionQuality: 1.0)
-                createPostViewModel.createPost(title: title, data: data)
+                createPostViewModel.createPost(title: title, data: data, completion: { isSuccess in
+                    if(isSuccess){
+                    self.presentationMode.wrappedValue.dismiss()
+                    }
+                })
             }){
                 Text("Create Post")
             }

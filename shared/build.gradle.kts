@@ -72,6 +72,9 @@ android {
         minSdkVersion(24)
         targetSdkVersion(30)
     }
+    sourceSets.all {
+        java.srcDirs(file("src/common${name.capitalize()}/kotlin"))
+    }
     buildToolsVersion = "30.0.3"
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
