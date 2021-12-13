@@ -16,7 +16,7 @@ class MovieSource(
             LoadResult.Page(
                 data = postListResponse.result,
                 prevKey = if (nextPage == 0) null else nextPage - 1,
-                nextKey = postListResponse.nextPage
+                nextKey = if(postListResponse.result.isNotEmpty())postListResponse.nextPage else null
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
