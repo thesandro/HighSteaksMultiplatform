@@ -41,6 +41,8 @@ fun CreatePostView(
     var description by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("") }
     val images by createPostViewModel.uiState.collectAsState()
+    val posted by createPostViewModel.postCreationState.collectAsState()
+
     fun createPost(){
         val inputData = context.contentResolver.openInputStream(createPostViewModel.uiState.value[0])?.readBytes()
         if (inputData != null) {
@@ -52,6 +54,9 @@ fun CreatePostView(
         if(uri != null)
             createPostViewModel.addPhoto(uri)
     }
+
+    if(posted)
+        navController.popBackStack()
 
     Column(
         modifier = Modifier

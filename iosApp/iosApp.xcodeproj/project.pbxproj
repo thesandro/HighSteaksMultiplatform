@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		2772ED2732A9DB7BD44CA983 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9045ACF1911922E7C08A06AB /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		8E4CAF1326A9BD4E00F6682D /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4CAF1226A9BD4E00F6682D /* CreatePostViewModel.swift */; };
+		8EC192E72715CA0800EFBA47 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC192E62715CA0800EFBA47 /* LoginViewModel.swift */; };
 		8EC38B2726A6E2A900A77EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EC38B2626A6E2A900A77EA7 /* Assets.xcassets */; };
 		8EC38B2B26A6E70000A77EA7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC38B2A26A6E70000A77EA7 /* HomeView.swift */; };
 		8EC38B2D26A6E71300A77EA7 /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC38B2C26A6E71300A77EA7 /* CreatePostView.swift */; };
@@ -23,6 +24,7 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E4CAF1226A9BD4E00F6682D /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
+		8EC192E62715CA0800EFBA47 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8EC38B2626A6E2A900A77EA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8EC38B2A26A6E70000A77EA7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8EC38B2C26A6E71300A77EA7 /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				8EC38B2C26A6E71300A77EA7 /* CreatePostView.swift */,
 				8EC38B2E26A6EE7800A77EA7 /* HomeViewModel.swift */,
 				8E4CAF1226A9BD4E00F6682D /* CreatePostViewModel.swift */,
+				8EC192E62715CA0800EFBA47 /* LoginViewModel.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				8EC38B2F26A6EE7800A77EA7 /* HomeViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				8EC192E72715CA0800EFBA47 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +350,7 @@
 				DEVELOPMENT_TEAM = 754KHC4KRP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -367,7 +371,7 @@
 				DEVELOPMENT_TEAM = 754KHC4KRP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
