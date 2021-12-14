@@ -9,7 +9,6 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -29,7 +28,7 @@ object ApiService {
         isLenient = true
     }
 
-    @ExperimentalSerializationApi
+
     suspend fun authorize(username: String, password: String): AuthorizationResponse? {
         val data = mapOf(
             "email" to username,
@@ -49,14 +48,12 @@ object ApiService {
         return if(response.status.isSuccess()) jsonBuilder.decodeFromString(stringResponse) else null
     }
 
-    @ExperimentalSerializationApi
     suspend fun getPosts(page: Int): PostListResponse? {
         val response = ktorClient.get<HttpResponse>("$BASE_PATH/posts?page=${page}")
         val stringResponse = response.readText()
         return if(response.status.isSuccess()) jsonBuilder.decodeFromString(stringResponse) else null
     }
 
-    @ExperimentalSerializationApi
     suspend fun createPost(
         title: String,
         uploadFiles: ByteArray,

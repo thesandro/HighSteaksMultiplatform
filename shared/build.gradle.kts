@@ -4,11 +4,11 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.31"
 }
 
 version = "1.0"
-
+val ktorVersion = "1.6.7"
 kotlin {
     android()
 
@@ -31,9 +31,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation ("io.ktor:ktor-client-core:1.6.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
-                implementation("io.ktor:ktor-client-logging:1.6.1")
+                implementation ("io.ktor:ktor-client-core:$ktorVersion")
+                implementation ("io.ktor:ktor-client-core-jvm:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
                 implementation ("ch.qos.logback:logback-classic:1.2.3")
             }
@@ -46,7 +47,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:1.6.1")
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
         }
         val androidTest by getting {
@@ -57,8 +58,8 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
-                implementation("io.ktor:ktor-client-ios:1.6.1")
+                implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
         val iosTest by getting
@@ -66,11 +67,11 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(31)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdkVersion(24)
-        targetSdkVersion(30)
+        targetSdkVersion(31)
     }
     sourceSets.all {
         java.srcDirs(file("src/common${name.capitalize()}/kotlin"))
@@ -80,4 +81,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+dependencies {
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.8.1")
 }

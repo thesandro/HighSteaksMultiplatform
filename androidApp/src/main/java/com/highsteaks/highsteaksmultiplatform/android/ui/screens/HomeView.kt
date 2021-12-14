@@ -1,5 +1,6 @@
 package com.highsteaks.highsteaksmultiplatform.android.ui.screens
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,18 +13,25 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.highsteaks.highsteaksmultiplatform.android.R
 import com.highsteaks.highsteaksmultiplatform.network.model.Post
 import com.highsteaks.highsteaksmultiplatform.android.ui.composables.LoadingView
@@ -32,6 +40,7 @@ import com.highsteaks.highsteaksmultiplatform.android.view_models.PostsViewModel
 import com.google.accompanist.coil.rememberCoilPainter
 
 
+@ExperimentalCoilApi
 @Composable
 fun HomeView(
     navController: NavHostController,
@@ -66,6 +75,9 @@ fun HomeView(
                         is LoadState.Loading -> {
                             LoadingView(modifier = Modifier.fillParentMaxSize())
                         }
+                        else -> {
+
+                        }
                     }
                 }
             }
@@ -73,10 +85,11 @@ fun HomeView(
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun FeedHeader(navController: NavHostController) {
 
-    fun navigateToCreatePost(){
+    fun navigateToCreatePost() {
         navController.navigate(Screen.CreatePost.route)
     }
     Row(
@@ -94,9 +107,8 @@ fun FeedHeader(navController: NavHostController) {
                 .clip(CircleShape)
                 .border(1.dp, Color.Gray, CircleShape),
             contentScale = ContentScale.Crop,
-            painter = rememberCoilPainter(
-                request = "http://proofof.dog/static/11cf6c18151cbb22c6a25d704ae7b313/9195b/doge-main.webp",
-                previewPlaceholder = R.drawable.ic_launcher_foreground
+            painter = rememberImagePainter(
+                data = "http://proofof.dog/static/11cf6c18151cbb22c6a25d704ae7b313/9195b/doge-main.webp",
             ),
             contentDescription = ""
         )
@@ -117,13 +129,20 @@ fun FeedHeader(navController: NavHostController) {
             )
         )
         {
-            Text("Do you want to make a post?",textAlign = TextAlign.Start,modifier = Modifier.fillMaxWidth(), color = Color.Gray)
+            Text(
+                "Do you want to make a post?",
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth(),
+                color = Color.Gray
+            )
         }
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun Post(post: Post) {
+    val configuration = LocalConfiguration.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -143,9 +162,8 @@ fun Post(post: Post) {
                     .clip(CircleShape)
                     .border(1.dp, Color.Gray, CircleShape),
                 contentScale = ContentScale.Crop,
-                painter = rememberCoilPainter(
-                    request = "https://www.kickassfacts.com/wp-content/uploads/2021/04/bear.jpg",
-                    previewPlaceholder = R.drawable.ic_launcher_foreground
+                painter = rememberImagePainter(
+                    data = "https://www.kickassfacts.com/wp-content/uploads/2021/04/bear.jpg",
                 ),
                 contentDescription = ""
             )
@@ -161,16 +179,19 @@ fun Post(post: Post) {
         if (post.urls.isNotEmpty()) {
             Image(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(0.dp, 0.dp, 0.dp, 10.dp)
-                    .requiredWidth(with(LocalDensity.current) { post.urls[0].width.toDp() })
-                    .requiredHeight(with(LocalDensity.current) { post.urls[0].height.toDp() })
+                    .fillMaxWidth(post.urls[0].width.toFloat())
+                    .requiredHeight(with(LocalDensity.current) {
+                        (
+                                if (post.urls[0].width.toDp() >= configuration.screenWidthDp.dp)
+                                    post.urls[0].height.toDp()*(configuration.screenWidthDp.dp/post.urls[0].width.toDp())
+                                else post.urls[0].height.toDp())
+                    })
                     .background(color = colorResource(R.color.post_color)),
-                painter = rememberCoilPainter(
-                    request = post.urls[0].url,
-                    previewPlaceholder = R.drawable.ic_launcher_foreground
+                painter = rememberImagePainter(
+                    data = post.urls[0].url
                 ),
-                contentScale = ContentScale.Fit,
+                contentScale = ContentScale.FillBounds,
                 contentDescription = ""
             )
         }

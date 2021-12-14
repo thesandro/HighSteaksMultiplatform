@@ -1,22 +1,30 @@
 package com.highsteaks.highsteaksmultiplatform.android.ui.screens
 
 import android.app.Application
+import android.util.Log.d
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
@@ -26,17 +34,24 @@ import com.highsteaks.highsteaksmultiplatform.android.view_models.CreatePostView
 import com.highsteaks.highsteaksmultiplatform.android.view_models.LoginViewModel
 
 
+@ExperimentalComposeUiApi
+@ExperimentalCoilApi
 @Composable
 fun LoginView(navController: NavHostController,loginViewModel: LoginViewModel = viewModel()){
-    var login by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var login by remember { mutableStateOf("thesandro1998@gmail.com") }
+    var password by remember { mutableStateOf("123123") }
     val posted by loginViewModel.loginState.collectAsState()
+    val context = LocalContext.current
+    val (focusRequester) = FocusRequester.createRefs()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     fun navigateToPosts(){
         loginViewModel.authorize(login,password)
     }
     if(posted)
-        navController.navigate(Screen.Home.route)
+        LaunchedEffect(Unit) {
+            navController.navigate(Screen.Home.route)
+        }
 
     Column(
         modifier = Modifier
@@ -60,16 +75,23 @@ fun LoginView(navController: NavHostController,loginViewModel: LoginViewModel = 
             value = login,
             onValueChange = { login = it },
             label = { Text("Email") },
-            modifier = Modifier.padding(16.dp, 18.dp, 16.dp, 18.dp)
+            keyboardActions = KeyboardActions(
+                onNext = { focusRequester.requestFocus() }
+            ),
+            singleLine = true,
+            modifier = Modifier.padding(16.dp, 18.dp, 16.dp, 18.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next)
         )
         TextField(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
+            singleLine = true,
+            keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
             modifier = Modifier
-                .padding(16.dp, 18.dp, 16.dp, 18.dp),
+                .padding(16.dp, 18.dp, 16.dp, 18.dp).focusRequester(focusRequester),
             visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done)
 
         )
         Button(
