@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.highsteaks.highsteaksmultiplatform.android.ui.navigation.Screen
+import com.highsteaks.highsteaksmultiplatform.android.ui.navigation.navigateBottomNavigation
 import com.highsteaks.highsteaksmultiplatform.android.ui.screens.CreatePostView
 import com.highsteaks.highsteaksmultiplatform.android.ui.screens.LoginView
 import com.highsteaks.highsteaksmultiplatform.android.ui.screens.HomeView
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
         val navController = rememberNavController()
         val items = listOf(
             Screen.Home,
-            Screen.Post,
+            Screen.CreatePost,
             Screen.Chat,
             Screen.Notification
         )
@@ -60,19 +61,7 @@ class MainActivity : ComponentActivity() {
                                 label = { Text(stringResource(screen.resourceId)) },
                                 selected = currentRoute == screen.route,
                                 onClick = {
-                                    navController.navigate(screen.route) {
-                                        // Pop up to the start destination of the graph to
-                                        // avoid building up a large stack of destinations
-                                        // on the back stack as users select items
-                                        popUpTo(navController.graph.startDestinationRoute!!) {
-                                            saveState = true
-                                        }
-                                        // Avoid multiple copies of the same destination when
-                                        // reselecting the same item
-                                        launchSingleTop = true
-                                        // Restore state when reselecting a previously selected item
-                                        restoreState = true
-                                    }
+                                    navigateBottomNavigation(navController = navController,screen.route)
                                 }
                             )
                         }

@@ -1,6 +1,7 @@
 package com.highsteaks.highsteaksmultiplatform.android.ui.screens
 
 import android.net.Uri
+import android.view.Gravity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
@@ -85,7 +86,7 @@ fun CreatePostView(
             )
             Text(
                 modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp),
-                text = "post.full_name"
+                text = "full_name"
             )
         }
         TextField(
@@ -152,7 +153,9 @@ fun CreatePostView(
         }
         Button(onClick = {
             createPost()
-        }){
+        },
+            modifier = Modifier.align(Alignment. CenterHorizontally)
+        ){
             Text("createPost")
         }
     }

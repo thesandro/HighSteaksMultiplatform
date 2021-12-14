@@ -38,6 +38,7 @@ import com.highsteaks.highsteaksmultiplatform.android.ui.composables.LoadingView
 import com.highsteaks.highsteaksmultiplatform.android.ui.navigation.Screen
 import com.highsteaks.highsteaksmultiplatform.android.view_models.PostsViewModel
 import com.google.accompanist.coil.rememberCoilPainter
+import com.highsteaks.highsteaksmultiplatform.android.ui.navigation.navigateBottomNavigation
 
 
 @ExperimentalCoilApi
@@ -90,7 +91,7 @@ fun HomeView(
 fun FeedHeader(navController: NavHostController) {
 
     fun navigateToCreatePost() {
-        navController.navigate(Screen.CreatePost.route)
+        navigateBottomNavigation(navController = navController,route = Screen.CreatePost.route)
     }
     Row(
         modifier = Modifier
@@ -180,7 +181,7 @@ fun Post(post: Post) {
             Image(
                 modifier = Modifier
                     .padding(0.dp, 0.dp, 0.dp, 10.dp)
-                    .fillMaxWidth(post.urls[0].width.toFloat())
+                    .fillMaxWidth()
                     .requiredHeight(with(LocalDensity.current) {
                         (
                                 if (post.urls[0].width.toDp() >= configuration.screenWidthDp.dp)
@@ -191,7 +192,7 @@ fun Post(post: Post) {
                 painter = rememberImagePainter(
                     data = post.urls[0].url
                 ),
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Fit,
                 contentDescription = ""
             )
         }
